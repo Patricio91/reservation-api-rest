@@ -3,6 +3,7 @@ import { AppDataSource } from "./database";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import customerRoutes from "./routes/customer.routes";
 const app = express();
 
 // MIDDLEWARES
@@ -11,9 +12,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // ROUTES
-app.use("/", (req, res) => {
-    res.send("HELLO WORLD");
-})
+app.use("/", customerRoutes);
 
 // SERVER
 async function main() {
