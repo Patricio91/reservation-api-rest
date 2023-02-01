@@ -1,4 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import { Customer } from "./Customer";
 import { Room } from "./Room";
 
 @Entity()
@@ -12,6 +13,9 @@ export class Reservation {
     @Column()
     checkOut!: Date;
 
-    @ManyToOne(type => Room, room => room.reservations)
+    @ManyToOne(() => Room, room => room.reservations)
     room!: Room;
+
+    @ManyToOne(() => Customer, (customer) => customer.reservation)
+    customer!: Customer;
 }
