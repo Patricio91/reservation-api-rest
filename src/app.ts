@@ -4,6 +4,8 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import customerRoutes from "./routes/customer.routes";
+import roomRoutes from "./routes/room.routes";
+import reservationRoutes from "./routes/reservation.routes";
 const app = express();
 
 // MIDDLEWARES
@@ -13,6 +15,8 @@ app.use(express.json());
 
 // ROUTES
 app.use("/", customerRoutes);
+app.use("/", roomRoutes);
+app.use("/", reservationRoutes);
 app.use("/", (req, res) => {
     res.send("404 - Page not found - 404")
 })

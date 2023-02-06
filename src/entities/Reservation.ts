@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from "typeorm";
 import { Customer } from "./Customer";
 import { Room } from "./Room";
 
@@ -8,14 +8,16 @@ export class Reservation {
     id!: number;
 
     @Column()
-    checkIn!: Date;
+    check_in!: Date;
 
     @Column()
-    checkOut!: Date;
+    check_out!: Date;
 
     @ManyToOne(() => Room, room => room.reservations)
+    @JoinColumn({name: "room_id"})
     room!: Room;
 
     @ManyToOne(() => Customer, (customer) => customer.reservation)
+    @JoinColumn({name: "customer_id"})
     customer!: Customer;
 }
