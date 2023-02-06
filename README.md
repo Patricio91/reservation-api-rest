@@ -91,6 +91,7 @@ Output:
     "customer": 1
 }
 ```
+Ingresar la fecha y hora en formato yyyMMdd donde "yyyy" es el año, "MM" es el mes y "dd" es el día (usando todo 2 dígitos). [Como insertar la fecha](https://desarrolladores.me/2017/07/sql-server-forma-correcta-de-escribir-la-fecha/#:~:text=La%20manera%20correcta%20de%20escribir,momento%20de%20escribir%20la%20fecha.)
 
 ## ROOM 🛏️
 - POST - Create room que es una de las opciones que un customer puede seleccionar para reservar. JSON para el Post al path ```localhost:3000/create-room```
