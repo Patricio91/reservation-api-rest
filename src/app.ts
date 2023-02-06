@@ -13,6 +13,9 @@ app.use(express.json());
 
 // ROUTES
 app.use("/", customerRoutes);
+app.use("/", (req, res) => {
+    res.send("404 - Page not found - 404")
+})
 
 // SERVER
 async function main() {
