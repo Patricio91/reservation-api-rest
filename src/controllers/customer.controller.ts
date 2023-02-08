@@ -3,14 +3,16 @@ import { AppDataSource } from "../database";
 import { Customer } from "../entities/Customer";
 import bcrypt from "bcrypt";
 import { signToken } from "../helpers/token";
+import { logInSchema, signUpSchema } from "../validators/customer.validator";
 const saltround = 10;
-const customerRepository = AppDataSource.getRepository(Customer);
+export const customerRepository = AppDataSource.getRepository(Customer);
 const salt = bcrypt.genSaltSync();
 
 // POST
 export const signUp = async (req: Request, res: Response) => {
     try {
-        const { firstname, lastname, email, phone, dni, age, password } = req.body; //en un futuro validar con Joi
+        const { firstname, lastname, email, phone, dni, age, password } = req.body;
+        await signUpSchema.validateAsync(req.body);
         const customer = new Customer();
         customer.firstname = firstname;
         customer.lastname = lastname;
@@ -20,7 +22,7 @@ export const signUp = async (req: Request, res: Response) => {
         customer.dni = dni,
         customer.age = age;
         await customerRepository.save(customer);
-        return res.status(201).send({message: `¡Cuenta creada! Bienvenido ${customer.firstname} ${customer.lastname}`})
+        return res.status(201).send({message: `¡Cuenta creada! Bienvenido ${customer.firstname} ${customer.lastname}`});
     } catch (error) {
         if (error instanceof Error) {
             return res.status(500).send({message: error.message});
@@ -78,6 +80,7 @@ export const deleteUserById = async (req: Request, res: Response) => {
 export const logIn = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
+        await logInSchema.validateAsync(req.body);
         const customer = await customerRepository.findOne({where: {email: (email)}});
         if (!customer) {
             return res.status(404).send({message: `No se encontró ninguna cuenta con el email '${email}'. Intente nuevamente`})

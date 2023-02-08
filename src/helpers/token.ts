@@ -7,7 +7,7 @@ export const signToken = async (customer: Customer) => {
             id: customer.id,
             role: customer.role
         },
-        process.env.TOKEN || "tokentest",
+        process.env.TOKEN || "secret_token_test",
         {
             expiresIn: "12h"
         }
