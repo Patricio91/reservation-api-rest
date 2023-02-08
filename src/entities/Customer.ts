@@ -27,6 +27,9 @@ export class Customer {
     @Column()
     dni!: string;
 
+    @Column({default: "CUSTOMER_ROLE"})
+    role!: string;
+
     @OneToMany(() => Reservation, (reservation) => reservation.customer)
     reservation!: Reservation[];
 

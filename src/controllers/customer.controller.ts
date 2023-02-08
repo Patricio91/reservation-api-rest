@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../database";
 import { Customer } from "../entities/Customer";
 import bcrypt from "bcrypt";
+import { signToken } from "../helpers/token";
 const saltround = 10;
 const customerRepository = AppDataSource.getRepository(Customer);
 const salt = bcrypt.genSaltSync();
@@ -81,11 +82,12 @@ export const logIn = async (req: Request, res: Response) => {
         if (!customer) {
             return res.status(404).send({message: `No se encontró ninguna cuenta con el email '${email}'. Intente nuevamente`})
         }
-        const customerPassword = await bcrypt.compare(password, customer.password);
-        if (!customerPassword) {
+        const validatePassw = await bcrypt.compare(password, customer.password);
+        if (!validatePassw) {
             return res.status(404).send({message: "Contraseña incorrecta. Intente nuevamente"});
         }
-        return res.status(200).send({message: "Ingreso exitoso. ¡Bienvenido!"})
+        const token = await signToken(customer);
+        return res.status(200).send({message: "Ingreso exitoso. ¡Bienvenido!", token})
     } catch (error) {
         if (error instanceof Error) {
             return res.status(500).send({message: error.message});
