@@ -2,6 +2,19 @@
 Una API REST como proyecto personal de backend la cual se encarga de registrar a usuarios que quieran reservar una habiación de hotel, pudiendo elegir entre que tipo de habitación quiere (por capacidad y/o precio).
 Hecha con TypeScript, NodeJS (con Express) y TypeORM.
 
+## Tecnologías usadas 🔧
+- **TypeScript**
+- **NodeJS**
+- **ExpressJS**
+- **TypeORM**
+- **MySQL**
+- **DBeaver**
+- **Bcrypt**
+- **Morgan**
+- **Cors**
+- **Dotenv**
+- **Ts-node-dev**
+
 ## CUSTOMER 🧍🏻
 - POST - Crear un usuario en la página:
 Endpoint: ```localhost:3000/sign-up```
@@ -91,6 +104,7 @@ Output:
     "customer": 1
 }
 ```
+Ingresar la fecha y hora en formato yyyMMdd donde "yyyy" es el año, "MM" es el mes y "dd" es el día (usando todo 2 dígitos). [Como insertar la fecha](https://desarrolladores.me/2017/07/sql-server-forma-correcta-de-escribir-la-fecha/#:~:text=La%20manera%20correcta%20de%20escribir,momento%20de%20escribir%20la%20fecha.)
 
 ## ROOM 🛏️
 - POST - Create room que es una de las opciones que un customer puede seleccionar para reservar. JSON para el Post al path ```localhost:3000/create-room```
