@@ -9,6 +9,7 @@ Hecha con TypeScript, NodeJS (con Express) y TypeORM.
 - **TypeORM**
 - **MySQL**
 - **DBeaver**
+- **JWT**
 - **Bcrypt**
 - **Morgan**
 - **Cors**
