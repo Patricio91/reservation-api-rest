@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { IPayload } from "../helpers";
 import { customerRepository } from "./customer.controller";
 import { createReservationSchema } from "../validators/reservation.validator";
+import { transporter } from "../config/mailer";
 const reservationRepository = AppDataSource.getRepository(Reservation);
 
 // POST
@@ -19,15 +20,27 @@ export const createReservation = async (req: Request, res: Response) => {
         }
         const payload = jwt.verify(token, process.env.TOKEN || "secret_token_test") as IPayload;
         const customerId = payload.id;
-        const customerReservation = await customerRepository.findOneBy({id: parseInt(customerId)});
-        if (!customerReservation) {
+        const customer = await customerRepository.findOneBy({id: parseInt(customerId)});
+        if (!customer) {
             return res.status(404).send({message: `El usuario ID #${customerId} no existe`});
         }
         reservation.check_in = check_in;
         reservation.check_out = check_out;
         reservation.room = room;
-        reservation.customer = customerReservation;
+        reservation.customer = customer;
         await reservationRepository.save(reservation);
+        const info = await transporter.sendMail({
+            from: '"Confirmación de reserva" <reservacionesmiller@gmail.com>',
+            to: customer.email,
+            subject: `Reservación N°${reservation.id}`,
+            html:`
+                <h2>Este es un correo de confirmación</h2>
+                <h2>🍸¡Su reservación fue recibida correctamente!🍾</h2>
+                <h3>👋Gracias ${customer.firstname} ${customer.lastname} por realizar la reservación👋</h3>
+                <h3>Su check-in es: ${reservation.check_in} y su check-out es: ${reservation.check_out}, para la habitación N°${reservation.room}</h3>
+                <p>🛎️- Hotel Mailler -🛎️</p>
+            `
+          });
         return res.status(201).send({message: `Reservada la habitación ${room} con entrada ${check_in} y salida ${check_out}`});
     } catch (error) {
         if (error instanceof Error) {
