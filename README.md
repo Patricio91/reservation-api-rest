@@ -10,6 +10,7 @@ Hecha con TypeScript, NodeJS (con Express) y TypeORM.
 - **MySQL**
 - **DBeaver**
 - **JWT**
+- **Nodemailer**
 - **Bcrypt**
 - **Morgan**
 - **Cors**
@@ -168,3 +169,8 @@ Output:
     "message": "Habitación ID #2 eliminada correctamente"
 }
 ```
+
+## Nodemailer
+Ejemplo de el email que se envía como confirmación al reservar una habitación
+![image](https://user-images.githubusercontent.com/76538747/217819992-a2dd0c2d-fd10-4791-b81a-c41159025f99.png)
+
