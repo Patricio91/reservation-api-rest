@@ -11,10 +11,10 @@ export async function sendConfirmationEmail(reservation: any, customer: any) {
             <h3>Gracias ${customer.firstname} ${customer.lastname} por realizar la reservación</h3>
             <p>
                 Su check-in es: ${reservation.check_in} y su check-out es: ${reservation.check_out}, para la habitación N°${reservation.room}.
-                si tiene algún inconveniente o desea cambiar el día, por favor contactarse a este número +54 11 345823
+                si tiene algún inconveniente o desea cambiar el día, por favor contactarse a este número <b>+54 11 345823</b>
             </p>
             <p>🛎️- Hotel Mailler -🛎️</p>
-            <img src="src/config/logoHotel.png">
+            <img src="https://raw.githubusercontent.com/Patricio91/reservation-api-rest/main/src/config/logoHotel.png">
         `
       });
 }
