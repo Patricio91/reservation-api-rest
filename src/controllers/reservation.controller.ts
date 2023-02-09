@@ -6,6 +6,7 @@ import { IPayload } from "../helpers";
 import { customerRepository } from "./customer.controller";
 import { createReservationSchema } from "../validators/reservation.validator";
 import { transporter } from "../config/mailer";
+import { sendConfirmationEmail } from "../config/emailConfirmation";
 const reservationRepository = AppDataSource.getRepository(Reservation);
 
 // POST
@@ -29,18 +30,7 @@ export const createReservation = async (req: Request, res: Response) => {
         reservation.room = room;
         reservation.customer = customer;
         await reservationRepository.save(reservation);
-        const info = await transporter.sendMail({
-            from: '"Confirmación de reserva" <reservacionesmiller@gmail.com>',
-            to: customer.email,
-            subject: `Reservación N°${reservation.id}`,
-            html:`
-                <h2>Este es un correo de confirmación</h2>
-                <h2>🍸¡Su reservación fue recibida correctamente!🍾</h2>
-                <h3>👋Gracias ${customer.firstname} ${customer.lastname} por realizar la reservación👋</h3>
-                <h3>Su check-in es: ${reservation.check_in} y su check-out es: ${reservation.check_out}, para la habitación N°${reservation.room}</h3>
-                <p>🛎️- Hotel Mailler -🛎️</p>
-            `
-          });
+        sendConfirmationEmail(reservation, customer);
         return res.status(201).send({message: `Reservada la habitación ${room} con entrada ${check_in} y salida ${check_out}`});
     } catch (error) {
         if (error instanceof Error) {
