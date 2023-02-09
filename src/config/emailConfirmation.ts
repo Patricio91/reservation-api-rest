@@ -13,7 +13,7 @@ export async function sendConfirmationEmail(reservation: any, customer: any) {
                 Su check-in es: ${reservation.check_in} y su check-out es: ${reservation.check_out}, para la habitación N°${reservation.room}.
                 si tiene algún inconveniente o desea cambiar el día, por favor contactarse a este número <b>+54 11 345823</b>
             </p>
-            <p>🛎️- Hotel Mailler -🛎️</p>
+            <p>🛎️- Hotel Mailer -🛎️</p>
             <img src="https://raw.githubusercontent.com/Patricio91/reservation-api-rest/main/src/config/logoHotel.png">
         `
       });
