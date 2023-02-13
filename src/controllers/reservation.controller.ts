@@ -7,7 +7,7 @@ import { customerRepository } from "./customer.controller";
 import { createReservationSchema } from "../validators/reservation.validator";
 import { transporter } from "../config/mailer";
 import { sendConfirmationEmail } from "../config/emailConfirmation";
-const reservationRepository = AppDataSource.getRepository(Reservation);
+export const reservationRepository = AppDataSource.getRepository(Reservation);
 
 // POST
 export const createReservation = async (req: Request, res: Response) => {
